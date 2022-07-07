@@ -9,22 +9,15 @@ describe('o App Será avaliado 100% pelo Stryker.', () => {
   test('testar renderizado um card com as informações de determinado pokémon:', () => {
     renderWithRouter(<App />);
     const namePokemon = screen.getByText(/pikachu/i);
-    expect(namePokemon).toBeInTheDocument();
-  });
-  test('testar se o tipo correto do pokémon deve ser mostrado na tela.', () => {
-    renderWithRouter(<App />);
     const typePokemon = screen.getByTestId('pokemon-type');
-    expect(typePokemon).toBeInTheDocument();
-  });
-  test('testar se o peso médio do pokémon deve ser mostrado na tela.', () => {
-    renderWithRouter(<App />);
-    const pesoPokemon = screen.getByText(/average weight: 6\.0 kg/i);
+    const pesoPokemon = screen.getByText(/average weight: 6.0 kg/i);
+    const imagPokemon = screen.getByAltText('Pikachu sprite');
+    expect(namePokemon).toBeInTheDocument();
+    expect(typePokemon).toHaveTextContent('Electric');
     expect(pesoPokemon).toBeInTheDocument();
-  });
-  test('testar se a imagem do pokémon deve ser mostrado na tela.', () => {
-    renderWithRouter(<App />);
-    const imagPokemon = screen.getByRole('img', { name: /pikachu sprite/i });
     expect(imagPokemon).toBeInTheDocument();
+    expect(imagPokemon).toHaveAttribute('src', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png');
+    expect(imagPokemon).toHaveAttribute('alt', 'Pikachu sprite');
   });
   test('testar se o card do pokémon contem link de detalhes.', () => {
     const { history } = renderWithRouter(<App />);
